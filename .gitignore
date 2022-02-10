@@ -1,0 +1,4 @@
+# ignore data folder
+data
+notebooks
+plots
