@@ -1,0 +1,92 @@
+*start_read
+
+*job_prefix KCS
+
+##############################################
+*vessel 1 KCS.GDF
+
+*xbody 1
+0.0 0.0 0.0 0.0
+
+*xprdct 1
+13.36000 .0000000 3.475000
+.0000000 57.71000 .0000000
+3.475000 .0000000 57.60000
+
+*vcg 1 3.552
+
+**lcg 1 -3.404
+
+**tcg 1 0.0
+
+*modes 1
+0 0 1 1 1 0
+##############################################
+
+**vessel 2 KCS.GDF
+
+**xbody 2
+0.0 -50.0 0.0 0.0
+
+**xprdct 2
+13.36000 .0000000 3.475000
+.0000000 57.71000 .0000000
+3.475000 .0000000 57.60000
+
+**vcg 2 3.552
+**lcg 2 0.0
+**tcg 2 0.0
+
+**modes 2
+0 0 0 1 0 0
+
+##############################################
+
+*nfrq -52
+-0.03 0.03
+
+**nfrq -14
+-0.12 0.12
+
+*nbeta -9
+0 45
+
+##############################################
+
+*log_level 4
+
+*seed 1
+
+*lin_damp 4 4 6.766716E+005
+
+*quad_damp 4 4 1.200592E+010
+
+*ramp_time 100.0
+*time_max 10800.0
+*time_step 0.25
+
+**wave regular 1       specify regular wave components here
+7.0 12 180 0         Height, Period, Direction, Phase
+2.0 10 150 90
+
+*wave bret
+6.5 19.0 180 0              Height, Period, Direction, Spread flag
+1                    Parameter s for spread function
+
+**wave jonswap
+4 20 135 0 3.3          Height, Period,Direction, Spread flag, Gamma
+5                    Parameter s for spread function
+
+**wave pm
+6 20 135 0               Height, Period, Direction, Spread function
+50                    Parameter s for spread function
+
+*irf_time 20
+
+**linear_eom
+
+**linear_fk
+
+**linear_hst
+
+*end_read

@@ -1,6 +1,6 @@
 # ignore data folder
 data/raw
-data/processed
+# data/processed
 notebooks/
 plots/
 

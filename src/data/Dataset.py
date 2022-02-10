@@ -1,19 +1,20 @@
 import numpy as np
 import pandas as pd
 import os
+from pathlib import Path
 from sklearn.model_selection import train_test_split
 import tensorflow as tf
 import matplotlib.pyplot as plt
 
 class Dataset:
     def __init__(self, input_dim, pred_dim, shift, skip=0.25, hop=0.25, batch_size=1, normalizer=30, classification=False):
-        self.data_folder                    = "data"
+        self.data_folder                    = Path("data")
         self.sim_folder_name                = "Simulations_01"
         self.num_sims                       = 62
-        self.raw_data_folder                = os.path.join(self.data_folder, 'raw')
-        self.processed_data_folder          = os.path.join(self.data_folder, 'processed')
-        self.interim_data_folder            = os.path.join(self.data_folder, 'interim')
-        self.sim_data_folder                = os.path.join(self.raw_data_folder, self.sim_folder_name)
+        self.raw_data_folder                = self.data_folder / 'raw'
+        self.processed_data_folder          = self.data_folder / 'processed'
+        self.interim_data_folder            = self.data_folder / 'interim'
+        self.sim_data_folder                = self.processed_data_folder / self.sim_folder_name
         self.roll_period                    = 30                                # Estimated roll period in seconds
         self.normalizer                     = normalizer                        # Roll angle normalizer                                
         self.sr                             = 0.25                              # Sampling rate of simulation data in seconds
@@ -38,7 +39,7 @@ class Dataset:
 
 
     def get_sim_data(self, sim_num, split=True):
-        inp_path    = os.path.join(self.sim_data_folder, 'sim_{}'.format(sim_num), 'motion', 'KCS_MotionTimeHistory.csv')
+        inp_path    = self.sim_data_folder / 'sim_{}'.format(sim_num) / 'motion.csv'
         data        = pd.read_csv(inp_path)
         cols        = data.columns
         time        = data[cols[0]]
@@ -50,7 +51,7 @@ class Dataset:
         return data
 
     def get_sim_inputs(self, sim_num):
-        inp_path    = os.path.join(self.sim_data_folder, 'sim_{}'.format(sim_num), 'KCS.inp')
+        inp_path    = self.sim_data_folder / 'sim_{}'.format(sim_num) / 'KCS.txt'
         
         with open(inp_path, 'r') as file:
             data    = file.readlines()
