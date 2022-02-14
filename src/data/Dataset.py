@@ -7,7 +7,7 @@ import tensorflow as tf
 import matplotlib.pyplot as plt
 
 class Dataset:
-    def __init__(self, input_dim, pred_dim, shift, skip=0.25, hop=0.25, batch_size=1, normalizer=30, classification=False):
+    def __init__(self, input_dim, pred_dim, shift, skip=1, hop=0.25, batch_size=1, normalizer=1, classification=False):
         self.data_folder                    = Path("data")
         self.sim_folder_name                = "Simulations_01"
         self.num_sims                       = 62

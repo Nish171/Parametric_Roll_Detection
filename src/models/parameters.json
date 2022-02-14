@@ -1,0 +1,17 @@
+{
+    "n": 10,
+    "m": 5,
+    "hop": 0.25,
+    "shift": 5,
+    "skip": 1,
+    "batch_size": 16,
+    "normalizer": 1,
+    "classification": false,
+    "roll_period": 30,
+    "optimizer": "adam",
+    "loss": "mse",
+    "metrics": [
+        "mse"
+    ],
+    "epochs": 100
+}
