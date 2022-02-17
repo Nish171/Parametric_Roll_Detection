@@ -8,7 +8,7 @@ class OneShotRNN(tf.keras.Model):
     
     super().__init__()
     # Intialize layers
-    rnn_cells = [tf.keras.layers.LSTMCell(128) for _ in range(1)]
+    rnn_cells = [tf.keras.layers.LSTMCell(128) for _ in range(2)]
     stacked_lstm = tf.keras.layers.StackedRNNCells(rnn_cells)
     self.lstm_layer = tf.keras.layers.RNN(stacked_lstm)
     self.dense_out = tf.keras.layers.Dense(OUTPUT_DIM)
