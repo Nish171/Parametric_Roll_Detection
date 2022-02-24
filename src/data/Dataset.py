@@ -5,9 +5,10 @@ from pathlib import Path
 from sklearn.model_selection import train_test_split
 import tensorflow as tf
 import matplotlib.pyplot as plt
+import math
 
 class Dataset:
-    def __init__(self, input_dim, pred_dim, shift, skip=1, hop=0.25, batch_size=1, normalizer=1, classification=False):
+    def __init__(self, input_dim, pred_dim, shift, skip=1, hop=0.25, batch_size=1, normalizer=1, classification=False, in_cols=['roll'], out_cols=['roll']):
         self.data_folder                    = Path("data")
         self.sim_folder_name                = "Simulations_01"
         self.num_sims                       = 62
@@ -24,17 +25,19 @@ class Dataset:
         self.shift                          = shift                             # Number of seconds to shift the prediction window
         self.skip                           = int(skip/self.sr)                 # Interval of the required data
         self.hop                            = hop                               # fraction of hop size in terms of input window size
-        self.xshape                         = int(self.input_dim/skip)
-        self.yshape                         = int(self.pred_dim/skip)
+        self.xshape                         = [int(math.ceil(self.input_dim/self.skip)), len(in_cols)]
+        self.yshape                         = [int(math.ceil(self.pred_dim/self.skip)), len(out_cols)]
         self.train_split                    = 0.8
         self.val_split                      = 0.1
         self.rs                             = 11
         self.batch_size                     = batch_size
         self.train, self.test, self.val     = self.train_test_val(self.train_split, self.val_split, self.rs)
         self.classification                 = classification
+        self.in_cols                        = in_cols
+        self.out_cols                       = out_cols
 
         if self.classification:
-            self.yshape = 1 
+            self.yshape = [1, len(self.out_cols)] 
 
 
 
@@ -48,7 +51,9 @@ class Dataset:
         pitch       = data[cols[11]]
         if split:
             return time, heave, roll, pitch
-        return data
+        data2 = data.iloc[:, [0, 9, 10, 11]]
+        data2.columns = ['time', 'heave', 'roll', 'pitch']
+        return data2
 
     def get_sim_inputs(self, sim_num):
         inp_path    = self.sim_data_folder / 'sim_{}'.format(sim_num) / 'KCS.txt'
@@ -110,13 +115,13 @@ class Dataset:
         def callable_gen():
             for sim_no in sim_nos:
 
-                _, _, roll, _   = self.get_sim_data(sim_no)
-                roll            = np.array(roll[::self.skip])/self.normalizer
-                sig_len         = len(roll)
-                win_size        = int(self.input_dim/(self.sr*self.skip))
-                pred_win_size   = int(self.pred_dim/(self.sr*self.skip))
-                shift_size      = int(self.shift/(self.sr*self.skip))
-                total_win_size  = win_size + pred_win_size
+                data   = self.get_sim_data(sim_no, split=False)
+                data            = data.loc[:, list(set(self.in_cols+self.out_cols))]/self.normalizer
+                sig_len         = len(data)
+                win_size        = int(self.input_dim)
+                pred_win_size   = int(self.pred_dim)
+                shift_size      = int(self.shift)
+                total_win_size  = win_size + shift_size
                 hop_len         = int(win_size*self.hop)
                 num             = int(1 + (sig_len - total_win_size) // hop_len)
                 
@@ -126,14 +131,14 @@ class Dataset:
                     win_end         = win_size + win_start
                     pred_win_end    = win_end + shift_size
                     pred_win_start  = pred_win_end - pred_win_size
-                    x               = roll[win_start:win_end]
-                    y               = roll[pred_win_start:pred_win_end]
+                    x               = data.iloc[win_start:win_end:self.skip,:].loc[:, self.in_cols]
+                    y               = data.iloc[pred_win_start:pred_win_end:self.skip,:].loc[:, self.out_cols]
                     if self.classification:
                         if max(y) > self.roll_thres:
-                            y = np.array([1])
+                            y = [1]
                         else:
-                            y = np.array([0])
-                    yield x[:, np.newaxis], y[:, np.newaxis]
+                            y = [0]
+                    yield np.array(x), np.array(y)
 
         return callable_gen
 
@@ -142,8 +147,8 @@ class Dataset:
         dataset = tf.data.Dataset.from_generator(
         ds, 
         output_signature=
-        (tf.TensorSpec(shape=[int(self.xshape),1], dtype=tf.float64), 
-        tf.TensorSpec(shape=[int(self.yshape),1], dtype=tf.float64)))
+        (tf.TensorSpec(shape=self.xshape, dtype=tf.float64), 
+        tf.TensorSpec(shape=self.yshape, dtype=tf.float64)))
 
         return dataset.batch(self.batch_size)
 
