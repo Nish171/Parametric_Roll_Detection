@@ -1,7 +1,7 @@
 # ignore data folder
 data/raw
 # data/processed
-notebooks/
+# notebooks/
 plots/
 wandb/
 
