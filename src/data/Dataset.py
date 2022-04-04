@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 import math
 
 class Dataset:
-    def __init__(self, input_dim, pred_dim, shift, skip=1, hop=0.25, batch_size=1, normalizer=1, classification=False, in_cols=['roll'], out_cols=['roll']):
+    def __init__(self, input_dim, pred_dim, shift, skip=1, hop=0.25, batch_size=1, classification=False, in_cols=['roll'], out_cols=['roll']):
         self.data_folder                    = Path("data")
         self.sim_folder_name                = "Simulations_01"
         self.num_sims                       = 62
@@ -17,7 +17,6 @@ class Dataset:
         self.interim_data_folder            = self.data_folder / 'interim'
         self.sim_data_folder                = self.processed_data_folder / self.sim_folder_name
         self.roll_period                    = 30                                # Estimated roll period in seconds
-        self.normalizer                     = normalizer                        # Roll angle normalizer                                
         self.sr                             = 0.25                              # Sampling rate of simulation data in seconds
         self.roll_thres                     = 10                                # Threshold for roll angle
         self.input_dim                      = input_dim                         # Number of seconds of data to be used as input
@@ -25,8 +24,8 @@ class Dataset:
         self.shift                          = shift                             # Number of seconds to shift the prediction window
         self.skip                           = int(skip/self.sr)                 # Interval of the required data
         self.hop                            = hop                               # fraction of hop size in terms of input window size
-        self.xshape                         = [int(math.ceil(self.input_dim/self.skip)), len(in_cols)]
-        self.yshape                         = [int(math.ceil(self.pred_dim/self.skip)), len(out_cols)]
+        self.xshape                         = [int(math.ceil(self.input_dim/self.skip/self.sr)), len(in_cols)]
+        self.yshape                         = [int(math.ceil(self.pred_dim/self.skip/self.sr)), len(out_cols)]
         self.train_split                    = 0.8
         self.val_split                      = 0.1
         self.rs                             = 11
@@ -116,11 +115,11 @@ class Dataset:
             for sim_no in sim_nos:
 
                 data   = self.get_sim_data(sim_no, split=False)
-                data            = data.loc[:, list(set(self.in_cols+self.out_cols))]/self.normalizer
+                data            = data.loc[:, list(set(self.in_cols+self.out_cols))]
                 sig_len         = len(data)
-                win_size        = int(self.input_dim)
-                pred_win_size   = int(self.pred_dim)
-                shift_size      = int(self.shift)
+                win_size        = int(self.input_dim/self.sr)
+                pred_win_size   = int(self.pred_dim/self.sr)
+                shift_size      = int(self.shift/self.sr)
                 total_win_size  = win_size + shift_size
                 hop_len         = int(win_size*self.hop)
                 num             = int(1 + (sig_len - total_win_size) // hop_len)
@@ -152,6 +151,11 @@ class Dataset:
 
         return dataset.batch(self.batch_size)
 
+    def normalizer(self, norm):
+        for x, y in self.Train:
+            norm.adapt(x)
+        return norm
+
     @property
     def Train(self):
         return self.make_tf_dataset(self.train)
@@ -171,11 +175,15 @@ class Dataset:
         i=0
         plt.figure(figsize=(12,max_plots*4))
         for x, y in self.Example(sim_no):
-            if max(y[0,:])>self.roll_thres+5:
+            if max(y[0,:])>self.roll_thres:
                 i+=1
                 delta = int(self.skip*self.sr)
-                t1 = range(0, len(x[0, :, 0]))
-                t2 = range(len(x[0, :, 0]) + (self.shift - self.pred_dim), len(x[0, :, 0]) + len(y[0, :, 0]) + (self.shift - self.pred_dim))
+                in_win_s = int(0/self.sr)
+                in_win_e = int(self.input_dim/self.sr)
+                pred_win_s = int((self.input_dim + self.shift - self.pred_dim)/self.sr)
+                pred_win_e = pred_win_s + int(self.pred_dim/self.sr)
+                t1 = np.array(range(in_win_s, in_win_e))*self.sr
+                t2 = np.array(range(pred_win_s, pred_win_e))*self.sr
                 plt.subplot(max_plots, 1, i)
                 plt.plot(t1, x[0, :, 0], label='Input')
                 if (model is not None):
@@ -185,6 +193,10 @@ class Dataset:
                         plt.text(0, 0, text, fontsize=12)
                     else:
                         plt.plot(t2, y_pred[0,:], label='Prediction')
+                        text1 = "MSE: " + str(tf.keras.metrics.MeanSquaredError()(y[0,:], y_pred[0,:]).numpy())
+                        text2 = "MAE: " + str(tf.keras.metrics.MeanAbsoluteError()(y[0,:], y_pred[0,:]).numpy())
+                        plt.text(50, max(y[0,:])-2, text1, fontsize=12)
+                        plt.text(150, max(y[0,:])-2, text2, fontsize=12)
                 plt.plot(t2, y[0,:], label='Actual')
                 plt.ylabel("Roll angle (deg)")
             if i==1:

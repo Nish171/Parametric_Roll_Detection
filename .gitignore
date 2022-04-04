@@ -1,6 +1,6 @@
 # ignore data folder
 data/raw
-# data/processed
+data/processed/RegWave_Simulations1
 # notebooks/
 plots/
 wandb/

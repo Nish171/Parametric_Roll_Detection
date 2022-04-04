@@ -1,0 +1,12 @@
+method: grid
+metric:
+  name: mse
+  goal: minimize
+
+parameters:
+  n:
+    values: [10, 8]
+  units:
+    values: [[128, 128], [256, 256]]
+  skip:
+    values: [1, 0.5]
