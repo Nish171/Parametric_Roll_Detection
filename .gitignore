@@ -6,3 +6,5 @@ plots/
 wandb/
 
 *.pyc
+
+LR_exp1.txt

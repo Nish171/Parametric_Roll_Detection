@@ -18,7 +18,7 @@ class Dataset:
         self.sim_data_folder                = self.processed_data_folder / self.sim_folder_name
         self.roll_period                    = 30                                # Estimated roll period in seconds
         self.sr                             = 0.25                              # Sampling rate of simulation data in seconds
-        self.roll_thres                     = 10                                # Threshold for roll angle
+        self.roll_thres                     = 10 * np.pi / 180                               # Threshold for roll angle
         self.input_dim                      = input_dim                         # Number of seconds of data to be used as input
         self.pred_dim                       = pred_dim                          # Number of seconds of data to be predicted
         self.shift                          = shift                             # Number of seconds to shift the prediction window
@@ -46,7 +46,7 @@ class Dataset:
         cols        = data.columns
         time        = data[cols[0]]
         heave       = data[cols[9]]
-        roll        = data[cols[10]]
+        roll        = data[cols[10]] * np.pi / 180
         pitch       = data[cols[11]]
         if split:
             return time, heave, roll, pitch
@@ -92,8 +92,8 @@ class Dataset:
 
     def train_test_val(self, train_split=0.8, val_split=0.1, rs = 11):
         stats       = self._data_stats_()
-        para        = np.array(stats[stats['Max_roll']>10]['Sim_no'])
-        non_para    = np.array(stats[stats['Max_roll']<=10]['Sim_no'])
+        para        = np.array(stats[stats['Max_roll']>self.roll_thres]['Sim_no'])
+        non_para    = np.array(stats[stats['Max_roll']<=self.roll_thres]['Sim_no'])
         
         para_train, para_rem            = train_test_split(para, train_size=train_split, random_state=rs)
         non_para_train, non_para_rem    = train_test_split(non_para, train_size=train_split, random_state=rs)
@@ -114,8 +114,8 @@ class Dataset:
         def callable_gen():
             for sim_no in sim_nos:
 
-                data   = self.get_sim_data(sim_no, split=False)
-                data            = data.loc[:, list(set(self.in_cols+self.out_cols))]
+                data            = self.get_sim_data(sim_no, split=False)
+                data            = data.loc[:, list(set(self.in_cols+self.out_cols))] * np.pi / 180
                 sig_len         = len(data)
                 win_size        = int(self.input_dim/self.sr)
                 pred_win_size   = int(self.pred_dim/self.sr)
