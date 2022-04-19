@@ -1,3 +1,4 @@
+import wave
 import numpy as np
 import pandas as pd
 import os
@@ -8,7 +9,7 @@ import matplotlib.pyplot as plt
 import math
 
 class Dataset:
-    def __init__(self, input_dim, pred_dim, shift, skip=1, hop=0.25, batch_size=1, classification=False, in_cols=['roll'], out_cols=['roll']):
+    def __init__(self, input_dim, pred_dim, shift, roll_period=30, skip=1, hop=0.25, batch_size=1, classification=False, in_cols=['roll'], out_cols=['roll'], **kwargs):
         self.data_folder                    = Path("data")
         self.sim_folder_name                = "Simulations_01"
         self.num_sims                       = 62
@@ -16,7 +17,7 @@ class Dataset:
         self.processed_data_folder          = self.data_folder / 'processed'
         self.interim_data_folder            = self.data_folder / 'interim'
         self.sim_data_folder                = self.processed_data_folder / self.sim_folder_name
-        self.roll_period                    = 30                                # Estimated roll period in seconds
+        self.roll_period                    = roll_period                                # Estimated roll period in seconds
         self.sr                             = 0.25                              # Sampling rate of simulation data in seconds
         self.roll_thres                     = 10 * np.pi / 180                               # Threshold for roll angle
         self.input_dim                      = input_dim                         # Number of seconds of data to be used as input
@@ -42,16 +43,21 @@ class Dataset:
 
     def get_sim_data(self, sim_num, split=True):
         inp_path    = self.sim_data_folder / 'sim_{}'.format(sim_num) / 'motion.csv'
+        wave_path   = self.sim_data_folder / 'sim_{}'.format(sim_num) / 'wave.csv'
         data        = pd.read_csv(inp_path)
+        wave_data   = pd.read_csv(wave_path)
+        w_cols      = wave_data.columns
         cols        = data.columns
         time        = data[cols[0]]
-        heave       = data[cols[9]]
+        heave       = data[cols[9]] / 230
         roll        = data[cols[10]] * np.pi / 180
-        pitch       = data[cols[11]]
+        pitch       = data[cols[11]] * np.pi / 180
+        wave        = wave_data[w_cols[1]] / 230
         if split:
-            return time, heave, roll, pitch
-        data2 = data.iloc[:, [0, 9, 10, 11]]
-        data2.columns = ['time', 'heave', 'roll', 'pitch']
+            return time, heave, roll, pitch, wave
+        # data2 = data.iloc[:, [0, 9, 10, 11]]
+        data2 = pd.concat([time, heave, roll, pitch, wave], axis=1)
+        data2.columns = ['time', 'heave', 'roll', 'pitch', 'wave']
         return data2
 
     def get_sim_inputs(self, sim_num):
@@ -70,7 +76,7 @@ class Dataset:
         stats               = pd.DataFrame(columns=['Sim_no', 'Hs', 'Tp', 'Max_roll'])
         
         for i in range(1, self.num_sims+1):
-            _, _, roll, _   = self.get_sim_data(i)
+            _, _, roll, _, _   = self.get_sim_data(i)
             max_roll        = max(roll)
             Hs, Tp          = self.get_sim_inputs(i)
             stats           = stats.append({'Sim_no': i, 'Hs':Hs, 'Tp':Tp, 'Max_roll':max_roll}, ignore_index=True)
@@ -115,7 +121,7 @@ class Dataset:
             for sim_no in sim_nos:
 
                 data            = self.get_sim_data(sim_no, split=False)
-                data            = data.loc[:, list(set(self.in_cols+self.out_cols))] * np.pi / 180
+                data            = data.loc[:, list(set(self.in_cols+self.out_cols))]
                 sig_len         = len(data)
                 win_size        = int(self.input_dim/self.sr)
                 pred_win_size   = int(self.pred_dim/self.sr)
@@ -207,20 +213,23 @@ class Dataset:
                 break
                 
     def plot_sim(self, sim_no):
-        time, heave, roll, pitch = self.get_sim_data(sim_no)
+        time, heave, roll, pitch, wave = self.get_sim_data(sim_no)
 
-        fig, ax = plt.subplots(3)
-        fig.set_figheight(10)
+        fig, ax = plt.subplots(4)
+        fig.set_figheight(12)
         fig.set_figwidth(12)
 
         ax[0].plot(time, heave)
-        ax[0].set_ylabel("Heave (m)", fontsize=15)
+        ax[0].set_ylabel("Heave / L", fontsize=15)
 
         ax[1].plot(time, roll)
-        ax[1].set_ylabel("Roll (deg)", fontsize=15)
+        ax[1].set_ylabel("Roll (Rad)", fontsize=15)
 
         ax[2].plot(time, pitch)
-        ax[2].set_ylabel("Pitch (deg)", fontsize=15)
+        ax[2].set_ylabel("Pitch (Rad)", fontsize=15)
+
+        ax[3].plot(time, wave)
+        ax[3].set_ylabel("Wave height / L ", fontsize=15)
 
         fig.tight_layout()
         plt.xlabel("Time (sec)", fontsize=15)

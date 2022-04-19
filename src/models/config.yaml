@@ -3,14 +3,16 @@ units: [128, 128]
 metrics: ['mse', 'mape', 'mae']
 loss: 'mse'
 optimizer: adam
+
 roll_period: 30
-normalizer: 1
-classification: False
-batch_size: 32
-skip: 1
-n: 10
-m: 5
-shift: 5
-hop: 0.25
 patience: 5
+input_dim: 300
+pred_dim: 150
+shift: 150
+skip: 0.25
+hop: 0.25
+batch_size: 16
+classification: False
+in_cols: ['roll', 'pitch', 'heave', 'wave']
+out_cols: ['roll']
 

@@ -52,10 +52,14 @@ if os.path.isdir(raw_data_folder):
         motion_data_src = sim_fol / 'motion' / 'KCS_MotionTimeHistory.csv'
         motion_data_dst = processed_data_folder / sim_name / 'motion.csv'
 
+        wave_data_src = sim_fol / 'wave' / 'KCS_WaveTimeHistory.csv'
+        wave_data_dst = processed_data_folder / sim_name / 'wave.csv'
+
         input_data_src  = sim_fol / 'KCS.inp'
         input_data_dst  = processed_data_folder / sim_name / 'KCS.txt'
         copy_text_files(input_data_src, input_data_dst)
         copy_csv_files(motion_data_src, motion_data_dst)
+        copy_csv_files(wave_data_src, wave_data_dst)
         
     print("Raw data has been processed and saved to {}".format(processed_data_folder))
 else:
