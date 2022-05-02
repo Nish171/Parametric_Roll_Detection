@@ -42,6 +42,17 @@ class Dataset:
 
 
     def get_sim_data(self, sim_num, split=True):
+        '''
+        Input: 
+            sim_num: Simulation number
+        
+        Returns: 
+            roll: Roll angle of the ship in radians
+            pitch: Pitch angle of the ship in radians
+            heave/L: Heave of the ship normalized to L
+            wave height/L: Wave height of the ship normalized to L
+
+        '''
         inp_path    = self.sim_data_folder / 'sim_{}'.format(sim_num) / 'motion.csv'
         wave_path   = self.sim_data_folder / 'sim_{}'.format(sim_num) / 'wave.csv'
         data        = pd.read_csv(inp_path)
@@ -61,6 +72,16 @@ class Dataset:
         return data2
 
     def get_sim_inputs(self, sim_num):
+        '''
+        Function: Get the wave height and wave period used to perform the simulation
+
+        Input:
+            sim_num: Simulation number
+
+        Returns:
+            Hs: Wave height
+            Tp: Wave period
+        '''
         inp_path    = self.sim_data_folder / 'sim_{}'.format(sim_num) / 'KCS.txt'
         
         with open(inp_path, 'r') as file:
@@ -73,6 +94,9 @@ class Dataset:
         return Hs, Tp
 
     def _data_stats_(self):
+        '''
+        Function: Get the statistics of the data
+        '''
         stats               = pd.DataFrame(columns=['Sim_no', 'Hs', 'Tp', 'Max_roll'])
         
         for i in range(1, self.num_sims+1):
@@ -83,6 +107,13 @@ class Dataset:
         return stats
 
     def stats_table(self):
+        '''
+        Function: Get the statistics of the data
+
+        Returns:
+            stats: DataFrame containing the statistics of the data
+        
+        '''
         stats = self._data_stats_()
         cols = stats['Tp'].unique()
         rows = stats['Hs'].unique()
@@ -97,6 +128,20 @@ class Dataset:
         return stats_df  
 
     def train_test_val(self, train_split=0.8, val_split=0.1, rs = 11):
+        '''
+        Function: Split the data into train, test and validation sets
+
+        Input:
+            train_split: Fraction of the data to be used for training
+            val_split: Fraction of the data to be used for validation
+            rs: Random state
+
+        Returns:
+            train: Numpy array containing the training data sim nos
+            test: Numpy array containing the test data sim nos
+            val: Numpy array containing the validation data sim nos
+        
+        '''
         stats       = self._data_stats_()
         para        = np.array(stats[stats['Max_roll']>self.roll_thres]['Sim_no'])
         non_para    = np.array(stats[stats['Max_roll']<=self.roll_thres]['Sim_no'])
@@ -117,7 +162,24 @@ class Dataset:
     
 
     def window_gen(self, sim_nos):
+        '''
+        Function: Generate the windows for the data
+
+        Input:
+            sim_nos: Numpy array containing the simulation numbers
+        Returns:
+            Generates a generator object that yields the windows
+
+        '''
         def callable_gen():
+            '''
+            Function: Generator function
+
+            Returns:
+                Yields the windows
+                X: Numpy array containing the data. Shape: (Input_window_size, Input_num_features)
+                Y: Numpy array containing the labels. Shape: (Output_window_size, Output_num_features)
+            '''
             for sim_no in sim_nos:
 
                 data            = self.get_sim_data(sim_no, split=False)
@@ -139,15 +201,25 @@ class Dataset:
                     x               = data.iloc[win_start:win_end:self.skip,:].loc[:, self.in_cols]
                     y               = data.iloc[pred_win_start:pred_win_end:self.skip,:].loc[:, self.out_cols]
                     if self.classification:
-                        if max(y) > self.roll_thres:
-                            y = [1]
-                        else:
-                            y = [0]
+                        y = [int(max(y) > self.roll_thres)]
+                        # if max(y) > self.roll_thres:
+                        #     y = [1]
+                        # else:
+                        #     y = [0]
                     yield np.array(x), np.array(y)
 
         return callable_gen
 
     def make_tf_dataset(self, sim_nos):
+        '''
+        Function: Generate the TF dataset
+
+        Input:
+            sim_nos: Numpy array containing the simulation numbers
+
+        Returns:
+            tf_dataset: TF dataset
+        '''
         ds = self.window_gen(sim_nos)
         dataset = tf.data.Dataset.from_generator(
         ds, 
@@ -164,14 +236,32 @@ class Dataset:
 
     @property
     def Train(self):
+        '''
+        Function: Get the training data
+
+        Returns:
+            tf_dataset: TF dataset containing the training data
+        '''
         return self.make_tf_dataset(self.train)
 
     @property
     def Test(self):
+        '''
+        Function: Get the test data
+
+        Returns:
+            tf_dataset: TF dataset containing the test data
+        '''
         return self.make_tf_dataset(self.test)
 
     @property
     def Val(self):
+        '''
+        Function: Get the validation data
+
+        Returns:
+            tf_dataset: TF dataset containing the validation data
+        '''
         return self.make_tf_dataset(self.val)
 
     def Example(self, sim_no):

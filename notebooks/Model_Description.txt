@@ -1,0 +1,28 @@
+Model 01: Classification
+
+Classification Model with Fully connected layers
+
+
+Model 02: DNN
+
+One shot regression model with Fully connected layers
+
+
+Model 03: RNN
+
+One shot regression model with LSTM layers
+
+
+Model 04: EncDec
+
+Encoder-Decoder model with LSTM layers
+
+
+Model 05: LSTM_encdec
+
+Autoregressive Encoder-Decoder model with LSTM layers
+
+
+Model 06: EncDec_TF
+
+Autoregressive Encoder-Decoder model with LSTM layers. Using Teacher forcing for training. Giving wave height while prediction of roll angle.
