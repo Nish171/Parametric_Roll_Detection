@@ -26,3 +26,11 @@ Autoregressive Encoder-Decoder model with LSTM layers
 Model 06: EncDec_TF
 
 Autoregressive Encoder-Decoder model with LSTM layers. Using Teacher forcing for training. Giving wave height while prediction of roll angle.
+
+Model 07: LSTM_encdec 03
+
+One time step prediction Encoder-Decoder model with LSTM layers. Uses wave height for prediction
+
+Model 08: LSTM_encdec 04
+
+One time step prediction Encoder-Decoder model with LSTM layers. Uses wave height for prediction. Predicts Roll, Heave and Pitch for one time step.
