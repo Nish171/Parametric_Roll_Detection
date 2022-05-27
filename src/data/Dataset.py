@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 import math
 
 class Dataset:
-    def __init__(self, input_dim, pred_dim, shift, roll_period=30, skip=1, hop=0.25, batch_size=1, classification=False, in_cols=['roll'], out_cols=['roll'], **kwargs):
+    def __init__(self, input_dim, pred_dim, shift, train_s=0.8, val_s=0.1, roll_period=30, skip=1, hop=0.25, batch_size=1, classification=False, in_cols=['roll'], out_cols=['roll'], **kwargs):
         self.data_folder                    = Path("data")
         self.sim_folder_name                = "Simulations_01"
         self.num_sims                       = 62
@@ -27,8 +27,8 @@ class Dataset:
         self.hop                            = hop                               # fraction of hop size in terms of input window size
         self.xshape                         = [int(math.ceil(self.input_dim/self.skip/self.sr)), len(in_cols)]
         self.yshape                         = [int(math.ceil(self.pred_dim/self.skip/self.sr)), len(out_cols)]
-        self.train_split                    = 0.8
-        self.val_split                      = 0.1
+        self.train_split                    = train_s
+        self.val_split                      = val_s
         self.rs                             = 11
         self.batch_size                     = batch_size
         self.train, self.test, self.val     = self.train_test_val(self.train_split, self.val_split, self.rs)
@@ -146,13 +146,13 @@ class Dataset:
         para        = np.array(stats[stats['Max_roll']>self.roll_thres]['Sim_no'])
         non_para    = np.array(stats[stats['Max_roll']<=self.roll_thres]['Sim_no'])
         
-        para_train, para_rem            = train_test_split(para, train_size=train_split, random_state=rs)
-        non_para_train, non_para_rem    = train_test_split(non_para, train_size=train_split, random_state=rs)
+        para_train, para_rem            = train_test_split(para, train_size=self.train_split, random_state=rs)
+        non_para_train, non_para_rem    = train_test_split(non_para, train_size=self.train_split, random_state=rs)
 
         val_split = val_split/(1-train_split)
         
-        para_val, para_test             = train_test_split(para_rem, train_size=val_split, random_state=rs)
-        non_para_val, non_para_test     = train_test_split(non_para_rem, train_size=val_split, random_state=rs)
+        para_val, para_test             = train_test_split(para_rem, train_size=self.val_split, random_state=rs)
+        non_para_val, non_para_test     = train_test_split(non_para_rem, train_size=self.val_split, random_state=rs)
         
         train   = np.concatenate((para_train, non_para_train))
         test    = np.concatenate((para_test, non_para_test))
@@ -189,7 +189,7 @@ class Dataset:
                 pred_win_size   = int(self.pred_dim/self.sr)
                 shift_size      = int(self.shift/self.sr)
                 total_win_size  = win_size + shift_size
-                hop_len         = int(win_size*self.hop)
+                hop_len         = int(self.hop/self.sr)
                 num             = int(1 + (sig_len - total_win_size) // hop_len)
                 
                 for i in range(num):

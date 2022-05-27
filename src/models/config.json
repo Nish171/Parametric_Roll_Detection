@@ -1,0 +1,31 @@
+﻿{
+    "epochs": 100,
+    "units": [
+      128,
+      128
+    ],
+    "metrics": [
+      "mse",
+      "mape",
+      "mae"
+    ],
+    "loss": "mse",
+    "optimizer": "adam",
+    "roll_period": 30,
+    "patience": 5,
+    "input_dim": 300,
+    "pred_dim": 150,
+    "shift": 150,
+    "skip": 0.25,
+    "hop": 0.25,
+    "batch_size": 2,
+    "classification": false,
+    "in_cols": [
+      "roll",
+      "pitch",
+      "heave"
+    ],
+    "out_cols": [
+      "roll"
+    ]
+}
