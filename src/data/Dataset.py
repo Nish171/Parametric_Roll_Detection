@@ -146,13 +146,13 @@ class Dataset:
         para        = np.array(stats[stats['Max_roll']>self.roll_thres]['Sim_no'])
         non_para    = np.array(stats[stats['Max_roll']<=self.roll_thres]['Sim_no'])
         
-        para_train, para_rem            = train_test_split(para, train_size=self.train_split, random_state=rs)
-        non_para_train, non_para_rem    = train_test_split(non_para, train_size=self.train_split, random_state=rs)
+        para_train, para_rem            = train_test_split(para, train_size=train_split, random_state=rs)
+        non_para_train, non_para_rem    = train_test_split(non_para, train_size=train_split, random_state=rs)
 
         val_split = val_split/(1-train_split)
         
-        para_val, para_test             = train_test_split(para_rem, train_size=self.val_split, random_state=rs)
-        non_para_val, non_para_test     = train_test_split(non_para_rem, train_size=self.val_split, random_state=rs)
+        para_val, para_test             = train_test_split(para_rem, train_size=val_split, random_state=rs)
+        non_para_val, non_para_test     = train_test_split(non_para_rem, train_size=val_split, random_state=rs)
         
         train   = np.concatenate((para_train, non_para_train))
         test    = np.concatenate((para_test, non_para_test))

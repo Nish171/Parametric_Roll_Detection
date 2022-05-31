@@ -52,3 +52,6 @@ def Train_func(model, **para):
     Data.plot_example(50, model=model)
 
     return train_history ,test_performance, model
+
+    print(tf.get_physical_devices())
+    print(tf.__version__)
