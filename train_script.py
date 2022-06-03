@@ -13,6 +13,11 @@ from pathlib import Path
 PATH_TO_CONFIG_FILE = Path('parameters.json')
 PATH_TO_MODEL_DIR = Path('models') / 'AQUA_RUNS'
 MODEL_NUMBER = '01'
+logger_path = PATH_TO_MODEL_DIR / MODEL_NUMBER /'Training_log' 
+
+if not os.path.isdir(logger_path):
+    os.makedirs(logger_path)
+
 # Read parameters.json
 
 with open(PATH_TO_CONFIG_FILE) as json_file:
@@ -66,7 +71,7 @@ backup = tf.keras.callbacks.BackupAndRestore(
     PATH_TO_MODEL_DIR / MODEL_NUMBER /'backup')
 
 logger = tf.keras.callbacks.CSVLogger(
-    PATH_TO_MODEL_DIR / MODEL_NUMBER /'Training_log/log.csv')
+    logger_path / 'log.csv')
 
 
 callbacks = [model_ckpt, backup, reduce_lr, logger]
