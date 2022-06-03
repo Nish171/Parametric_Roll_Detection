@@ -36,8 +36,8 @@ model = tf.keras.Sequential([
     ])
 
 # Compile model
-def Compile_model(loss, metrics, **kwargs):
-    opti = tf.keras.optimizers.Adam(**kwargs)
+def Compile_model(loss, metrics, lr, b1, b2, epsi, amsgrad, **kwargs):
+    opti = tf.keras.optimizers.Adam(learning_rate=lr, beta_1=b1, beta_2=b2, epsilon=epsi, amsgrad=amsgrad)
     model.compile(optimizer=opti, loss=loss, metrics=metrics)
     model.summary()
 
