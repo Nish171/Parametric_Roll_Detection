@@ -1,5 +1,5 @@
 {
-    "epochs": 10,
+    "epochs": 100,
     "units": [
       128,
       128
@@ -31,9 +31,9 @@
     "out_cols": [
       "roll"
     ],
-    "learning_rate": 0.001,
-    "beta_1": 0.9,
-    "beta_2": 0.999,
-    "epsilon": 1e-08,
+    "lr": 0.001,
+    "b1": 0.9,
+    "b2": 0.999,
+    "epsi": 1e-08,
     "amsgrad": false
 }
