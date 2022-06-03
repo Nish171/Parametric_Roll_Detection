@@ -63,7 +63,7 @@ tensorboard_callback = tf.keras.callbacks.TensorBoard(
     update_freq=500)
 
 backup = tf.keras.callbacks.BackupAndRestore(
-    filepath=PATH_TO_MODEL_DIR / MODEL_NUMBER /'backup')
+    PATH_TO_MODEL_DIR / MODEL_NUMBER /'backup')
 
 logger = tf.keras.callbacks.CSVLogger(
     PATH_TO_MODEL_DIR / MODEL_NUMBER /'Training_log/log.csv')
