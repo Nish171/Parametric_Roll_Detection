@@ -1,6 +1,6 @@
 {
-    "model_type": "LSTM",
-    "epochs": 100,
+    "model_type": "Base",
+    "epochs": 30,
     "units": [
       128,
       128

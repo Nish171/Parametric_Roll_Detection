@@ -1,7 +1,8 @@
+import time
+
+s = time.time()
 import tensorboard
 from src.data.Dataset import Dataset as DS
-# from src.callbacks.epochcheckpoint import EpochCheckpoint
-# from src.callbacks.trainingmonitor import TrainingMonitor
 import tensorflow as tf
 import numpy as np
 import matplotlib.pyplot as plt
@@ -9,11 +10,20 @@ from datetime import datetime
 import json
 import os
 from pathlib import Path
+from BuildModel import Build_LSTM_Model, Build_Base_Model
+import argparse
 
-PATH_TO_CONFIG_FILE = Path('parameters.json')
-PATH_TO_MODEL_DIR = Path('models') / 'AQUA_RUNS'
-MODEL_NUMBER = '01'
-logger_path = PATH_TO_MODEL_DIR / MODEL_NUMBER /'Training_log' 
+ap = argparse.ArgumentParser()
+ap.add_argument("-r", "--rundir", default="AQUA_RUNS", help="Run directory")
+ap.add_argument("-n", "--modelnum", type=str, help="Model number")
+args = vars(ap.parse_args())
+
+RUN_NAME = str(args['rundir'])
+MODEL_NUMBER = str(args['modelnum'])
+PATH_TO_MODEL_DIR = Path('models') / RUN_NAME / MODEL_NUMBER
+PATH_TO_CONFIG_FILE = PATH_TO_MODEL_DIR / 'parameters.json'
+
+logger_path = PATH_TO_MODEL_DIR / 'Training_log' 
 
 if not os.path.isdir(logger_path):
     os.makedirs(logger_path)
@@ -23,22 +33,22 @@ if not os.path.isdir(logger_path):
 with open(PATH_TO_CONFIG_FILE) as json_file:
     para = json.load(json_file)
 
-# Define Dataset
+print("SETUP TIME = ", time.time() - s)
 
+s = time.time()
+
+# Define Dataset
 Train_data = DS(**para)
 
-INPUT_DIM = Train_data.xshape
-OUTPUT_DIM = Train_data.yshape
+print("DATASET TIME = ", time.time() - s)
+
+s = time.time()
 
 # Define model
-
-model = tf.keras.Sequential([
-        tf.keras.layers.InputLayer(input_shape=INPUT_DIM),
-        tf.keras.layers.LSTM(units=256, return_sequences=True),
-        tf.keras.layers.LSTM(units=64, return_sequences=False),
-        tf.keras.layers.Dense(64, activation='linear'),
-        tf.keras.layers.Dense(OUTPUT_DIM[0])
-    ])
+if para['model_type'] == 'LSTM':
+    model = Build_LSTM_Model(**para)
+elif para['model_type'] == 'Base':
+    model = Build_Base_Model(**para)
 
 # Compile model
 def Compile_model(loss, metrics, lr, b1, b2, epsi, amsgrad, **kwargs):
@@ -48,10 +58,12 @@ def Compile_model(loss, metrics, lr, b1, b2, epsi, amsgrad, **kwargs):
 
 Compile_model(**para)
 
+print("MODEL COMPILE TIME = ", time.time() - s)
+
 # Define callbacks
 
 model_ckpt = tf.keras.callbacks.ModelCheckpoint(
-    filepath=PATH_TO_MODEL_DIR / MODEL_NUMBER /'model',
+    filepath=PATH_TO_MODEL_DIR / 'model',
     save_weights_only=False,
     monitor='val_loss',
     mode='min',
@@ -59,19 +71,19 @@ model_ckpt = tf.keras.callbacks.ModelCheckpoint(
 
 reduce_lr = tf.keras.callbacks.ReduceLROnPlateau(
     monitor='val_loss', 
-    factor=0.5,
-    patience=10,
-    min_lr=0.00001)
+    factor=para['red_lr_f'],
+    patience=para['red_lr_patience'],
+    min_lr=para['red_lr_min_lr'])
 
 tensorboard_callback = tf.keras.callbacks.TensorBoard(
-    log_dir=PATH_TO_MODEL_DIR / MODEL_NUMBER /'logs',
+    log_dir=PATH_TO_MODEL_DIR / 'logs',
     update_freq=500)
 
 backup = tf.keras.callbacks.BackupAndRestore(
-    PATH_TO_MODEL_DIR / MODEL_NUMBER /'backup')
+    PATH_TO_MODEL_DIR / 'backup')
 
 logger = tf.keras.callbacks.CSVLogger(
-    logger_path / 'log.csv')
+    logger_path / 'log.csv', append=True)
 
 
 callbacks = [model_ckpt, backup, reduce_lr, logger]
@@ -83,4 +95,5 @@ history = model.fit(
     epochs=para['epochs'],
     verbose=2,
     validation_data=Train_data.Test,
-    callbacks=callbacks)
+    callbacks=callbacks,
+    batch_size=para['batch_size'])

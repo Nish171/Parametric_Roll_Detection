@@ -1,9 +1,10 @@
 {
     "model_type": "LSTM",
-    "epochs": 100,
+    "epochs": 30,
     "units": [
       128,
-      128
+      128,
+	    64
     ],
     "metrics": [
       "mse",
@@ -38,7 +39,7 @@
     "epsi": 1e-08,
     "amsgrad": false,
     "d_acti": "linear",
-    "red_lr_f": 0.5,
-    "red_lr_patience": 5,
+    "red_lr_f": 0.25,
+    "red_lr_patience": 15,
     "red_lr_min_lr": 0.00001
 }
