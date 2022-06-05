@@ -1,0 +1,23 @@
+SETUP TIME =  8.670438528060913
+DATASET TIME =  7.355966806411743
+Model: "sequential"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ lstm (LSTM)                 (None, 32)                4736      
+                                                                 
+ dense (Dense)               (None, 128)               4224      
+                                                                 
+ dense_1 (Dense)             (None, 1)                 129       
+                                                                 
+=================================================================
+Total params: 9,089
+Trainable params: 9,089
+Non-trainable params: 0
+_________________________________________________________________
+MODEL COMPILE TIME =  2.6666438579559326
+Epoch 2/30
+1988/1988 - 870s - loss: 2.0366e-05 - mse: 2.0366e-05 - mape: 89.4168 - mae: 0.0018 - val_loss: 2.7339e-06 - val_mse: 2.7339e-06 - val_mape: 19.3335 - val_mae: 8.8629e-04 - lr: 0.0010 - 870s/epoch - 438ms/step
+Epoch 3/30
+SETUP TIME =  9.202623128890991
+DATASET TIME =  7.71616005897522

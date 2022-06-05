@@ -1,0 +1,48 @@
+SETUP TIME =  29.822863340377808
+DATASET TIME =  13.509321689605713
+Model: "sequential"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ lstm (LSTM)                 (None, 32)                4736      
+                                                                 
+ dense (Dense)               (None, 128)               4224      
+                                                                 
+ dense_1 (Dense)             (None, 1)                 129       
+                                                                 
+=================================================================
+Total params: 9,089
+Trainable params: 9,089
+Non-trainable params: 0
+_________________________________________________________________
+MODEL COMPILE TIME =  3.168792724609375
+Epoch 1/30
+994/994 - 905s - loss: 2.1890e-05 - mse: 2.1890e-05 - mape: 23.5299 - mae: 0.0015 - val_loss: 2.4235e-06 - val_mse: 2.4235e-06 - val_mape: 8.1526 - val_mae: 6.2980e-04 - lr: 0.0010 - 905s/epoch - 910ms/step
+Epoch 2/30
+994/994 - 872s - loss: 2.0371e-05 - mse: 2.0371e-05 - mape: 89.4378 - mae: 0.0018 - val_loss: 2.7383e-06 - val_mse: 2.7383e-06 - val_mape: 19.3537 - val_mae: 8.8707e-04 - lr: 0.0010 - 872s/epoch - 877ms/step
+Epoch 3/30
+SETUP TIME =  8.881439924240112
+DATASET TIME =  7.5603461265563965
+SETUP TIME =  4.341192722320557
+DATASET TIME =  6.417734861373901
+SETUP TIME =  4.531569719314575
+DATASET TIME =  6.1969850063323975
+Model: "sequential"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ lstm (LSTM)                 (None, 32)                4736      
+                                                                 
+ dense (Dense)               (None, 128)               4224      
+                                                                 
+ dense_1 (Dense)             (None, 1)                 129       
+                                                                 
+=================================================================
+Total params: 9,089
+Trainable params: 9,089
+Non-trainable params: 0
+_________________________________________________________________
+MODEL COMPILE TIME =  1.9649293422698975
+Epoch 3/30
+2982/2982 - 867s - loss: 3.3480e-07 - mse: 3.3480e-07 - mape: 8.5080 - mae: 2.9896e-04 - val_loss: 4.5050e-07 - val_mse: 4.5050e-07 - val_mape: 4.9298 - val_mae: 2.9831e-04 - lr: 0.0010 - 867s/epoch - 291ms/step
+Epoch 4/30

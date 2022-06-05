@@ -1,0 +1,107 @@
+SETUP TIME =  4.353930711746216
+DATASET TIME =  6.3916802406311035
+SETUP TIME =  4.360374927520752
+DATASET TIME =  6.336481332778931
+SETUP TIME =  4.344163179397583
+DATASET TIME =  6.307604789733887
+SETUP TIME =  9.870583057403564
+DATASET TIME =  8.488321781158447
+Model: "sequential"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ lstm (LSTM)                 (None, 1200, 64)          17664     
+                                                                 
+ lstm_1 (LSTM)               (None, 64)                33024     
+                                                                 
+ dense (Dense)               (None, 64)                4160      
+                                                                 
+ dense_1 (Dense)             (None, 1)                 65        
+                                                                 
+=================================================================
+Total params: 54,913
+Trainable params: 54,913
+Non-trainable params: 0
+_________________________________________________________________
+MODEL COMPILE TIME =  3.1381261348724365
+Epoch 1/30
+994/994 - 969s - loss: 5.8635e-05 - mse: 5.8635e-05 - mape: 64.3457 - mae: 0.0028 - val_loss: 2.3114e-06 - val_mse: 2.3114e-06 - val_mape: 9.7433 - val_mae: 6.5938e-04 - lr: 0.0010 - 969s/epoch - 974ms/step
+Epoch 2/30
+994/994 - 1001s - loss: 2.5315e-06 - mse: 2.5315e-06 - mape: 12.4577 - mae: 6.6177e-04 - val_loss: 9.8047e-07 - val_mse: 9.8047e-07 - val_mape: 7.8770 - val_mae: 4.5121e-04 - lr: 0.0010 - 1001s/epoch - 1s/step
+Epoch 3/30
+994/994 - 975s - loss: 1.9984e-06 - mse: 1.9984e-06 - mape: 20.6673 - mae: 6.7029e-04 - val_loss: 7.5901e-07 - val_mse: 7.5901e-07 - val_mape: 4.5133 - val_mae: 3.6990e-04 - lr: 0.0010 - 975s/epoch - 981ms/step
+Epoch 4/30
+994/994 - 976s - loss: 1.8911e-05 - mse: 1.8911e-05 - mape: 29.4674 - mae: 0.0012 - val_loss: 5.4415e-07 - val_mse: 5.4415e-07 - val_mape: 3.2961 - val_mae: 3.1501e-04 - lr: 0.0010 - 976s/epoch - 982ms/step
+Epoch 5/30
+994/994 - 976s - loss: 3.9579e-07 - mse: 3.9579e-07 - mape: 8.6209 - mae: 3.1013e-04 - val_loss: 3.0363e-07 - val_mse: 3.0363e-07 - val_mape: 2.2557 - val_mae: 2.3245e-04 - lr: 0.0010 - 976s/epoch - 982ms/step
+Epoch 6/30
+994/994 - 974s - loss: 2.9546e-05 - mse: 2.9546e-05 - mape: 23.5330 - mae: 0.0015 - val_loss: 3.8720e-07 - val_mse: 3.8720e-07 - val_mape: 2.7001 - val_mae: 2.5622e-04 - lr: 0.0010 - 974s/epoch - 980ms/step
+Epoch 7/30
+994/994 - 1033s - loss: 2.1818e-07 - mse: 2.1818e-07 - mape: 4.6699 - mae: 2.2214e-04 - val_loss: 2.3989e-07 - val_mse: 2.3989e-07 - val_mape: 2.1197 - val_mae: 2.0746e-04 - lr: 0.0010 - 1033s/epoch - 1s/step
+Epoch 8/30
+994/994 - 977s - loss: 3.4023e-07 - mse: 3.4023e-07 - mape: 14.8903 - mae: 3.2648e-04 - val_loss: 1.7249e-07 - val_mse: 1.7249e-07 - val_mape: 2.1852 - val_mae: 1.9046e-04 - lr: 0.0010 - 977s/epoch - 983ms/step
+Epoch 9/30
+994/994 - 979s - loss: 5.1677e-06 - mse: 5.1677e-06 - mape: 9.9007 - mae: 6.6865e-04 - val_loss: 1.4787e-07 - val_mse: 1.4787e-07 - val_mape: 1.7318 - val_mae: 1.6702e-04 - lr: 0.0010 - 979s/epoch - 985ms/step
+Epoch 10/30
+994/994 - 974s - loss: 3.0538e-07 - mse: 3.0538e-07 - mape: 18.0828 - mae: 3.1076e-04 - val_loss: 2.4056e-07 - val_mse: 2.4056e-07 - val_mape: 2.1868 - val_mae: 2.5331e-04 - lr: 0.0010 - 974s/epoch - 980ms/step
+Epoch 11/30
+994/994 - 976s - loss: 2.5353e-06 - mse: 2.5353e-06 - mape: 11.7218 - mae: 5.9286e-04 - val_loss: 8.7992e-08 - val_mse: 8.7992e-08 - val_mape: 1.6478 - val_mae: 1.2859e-04 - lr: 0.0010 - 976s/epoch - 982ms/step
+Epoch 12/30
+994/994 - 987s - loss: 5.0947e-06 - mse: 5.0947e-06 - mape: 11.8882 - mae: 5.5435e-04 - val_loss: 1.6714e-07 - val_mse: 1.6714e-07 - val_mape: 1.3309 - val_mae: 1.5337e-04 - lr: 0.0010 - 987s/epoch - 993ms/step
+Epoch 13/30
+994/994 - 986s - loss: 1.1596e-06 - mse: 1.1596e-06 - mape: 9.7337 - mae: 3.6699e-04 - val_loss: 6.1810e-08 - val_mse: 6.1810e-08 - val_mape: 1.3687 - val_mae: 1.0919e-04 - lr: 0.0010 - 986s/epoch - 992ms/step
+Epoch 14/30
+994/994 - 1138s - loss: 6.1069e-06 - mse: 6.1069e-06 - mape: 29.5221 - mae: 7.3057e-04 - val_loss: 6.8170e-08 - val_mse: 6.8170e-08 - val_mape: 1.5712 - val_mae: 1.1529e-04 - lr: 0.0010 - 1138s/epoch - 1s/step
+Epoch 15/30
+994/994 - 978s - loss: 5.9556e-08 - mse: 5.9556e-08 - mape: 3.2074 - mae: 1.2420e-04 - val_loss: 4.1179e-08 - val_mse: 4.1179e-08 - val_mape: 0.9746 - val_mae: 8.7774e-05 - lr: 0.0010 - 978s/epoch - 984ms/step
+Epoch 16/30
+994/994 - 974s - loss: 1.7687e-05 - mse: 1.7687e-05 - mape: 82.2360 - mae: 0.0016 - val_loss: 6.3257e-08 - val_mse: 6.3257e-08 - val_mape: 2.5367 - val_mae: 1.2676e-04 - lr: 0.0010 - 974s/epoch - 980ms/step
+Epoch 17/30
+994/994 - 968s - loss: 3.8295e-08 - mse: 3.8295e-08 - mape: 2.5053 - mae: 9.2419e-05 - val_loss: 5.1999e-08 - val_mse: 5.1999e-08 - val_mape: 1.5394 - val_mae: 1.0327e-04 - lr: 2.5000e-04 - 968s/epoch - 974ms/step
+Epoch 18/30
+994/994 - 973s - loss: 2.9861e-08 - mse: 2.9861e-08 - mape: 2.2276 - mae: 8.3725e-05 - val_loss: 4.4317e-08 - val_mse: 4.4317e-08 - val_mape: 1.2735 - val_mae: 9.4343e-05 - lr: 2.5000e-04 - 973s/epoch - 979ms/step
+Epoch 19/30
+994/994 - 980s - loss: 3.0262e-08 - mse: 3.0262e-08 - mape: 2.4451 - mae: 8.7154e-05 - val_loss: 3.9556e-08 - val_mse: 3.9556e-08 - val_mape: 1.0999 - val_mae: 8.7883e-05 - lr: 2.5000e-04 - 980s/epoch - 986ms/step
+Epoch 20/30
+994/994 - 978s - loss: 6.3146e-08 - mse: 6.3146e-08 - mape: 2.7367 - mae: 1.1135e-04 - val_loss: 3.5134e-08 - val_mse: 3.5134e-08 - val_mape: 1.0505 - val_mae: 8.2298e-05 - lr: 2.5000e-04 - 978s/epoch - 983ms/step
+Epoch 21/30
+994/994 - 973s - loss: 7.1273e-08 - mse: 7.1273e-08 - mape: 3.3104 - mae: 1.2986e-04 - val_loss: 3.0736e-08 - val_mse: 3.0736e-08 - val_mape: 1.2497 - val_mae: 7.9704e-05 - lr: 2.5000e-04 - 973s/epoch - 979ms/step
+Epoch 22/30
+994/994 - 983s - loss: 2.2731e-07 - mse: 2.2731e-07 - mape: 2.6869 - mae: 1.6525e-04 - val_loss: 3.0028e-08 - val_mse: 3.0028e-08 - val_mape: 0.8500 - val_mae: 7.4203e-05 - lr: 2.5000e-04 - 983s/epoch - 989ms/step
+Epoch 23/30
+994/994 - 975s - loss: 5.1175e-08 - mse: 5.1175e-08 - mape: 4.2468 - mae: 1.0725e-04 - val_loss: 2.8612e-08 - val_mse: 2.8612e-08 - val_mape: 0.8943 - val_mae: 7.2762e-05 - lr: 2.5000e-04 - 975s/epoch - 981ms/step
+Epoch 24/30
+994/994 - 964s - loss: 7.6152e-07 - mse: 7.6152e-07 - mape: 15.5796 - mae: 3.1997e-04 - val_loss: 2.8385e-08 - val_mse: 2.8385e-08 - val_mape: 0.8216 - val_mae: 7.3895e-05 - lr: 2.5000e-04 - 964s/epoch - 970ms/step
+Epoch 25/30
+994/994 - 977s - loss: 1.9240e-08 - mse: 1.9240e-08 - mape: 2.0087 - mae: 7.2804e-05 - val_loss: 2.4721e-08 - val_mse: 2.4721e-08 - val_mape: 0.8099 - val_mae: 6.8238e-05 - lr: 2.5000e-04 - 977s/epoch - 983ms/step
+Epoch 26/30
+994/994 - 978s - loss: 3.2048e-08 - mse: 3.2048e-08 - mape: 4.3968 - mae: 1.0526e-04 - val_loss: 2.2723e-08 - val_mse: 2.2723e-08 - val_mape: 1.9576 - val_mae: 7.6856e-05 - lr: 2.5000e-04 - 978s/epoch - 984ms/step
+Epoch 27/30
+994/994 - 969s - loss: 2.3102e-06 - mse: 2.3102e-06 - mape: 6.8395 - mae: 4.0256e-04 - val_loss: 2.3737e-08 - val_mse: 2.3737e-08 - val_mape: 0.8041 - val_mae: 6.6298e-05 - lr: 2.5000e-04 - 969s/epoch - 975ms/step
+Epoch 28/30
+994/994 - 968s - loss: 9.1202e-09 - mse: 9.1202e-09 - mape: 1.0646 - mae: 4.7244e-05 - val_loss: 2.1258e-08 - val_mse: 2.1258e-08 - val_mape: 0.6790 - val_mae: 6.2720e-05 - lr: 2.5000e-04 - 968s/epoch - 974ms/step
+Epoch 29/30
+994/994 - 963s - loss: 1.1568e-08 - mse: 1.1568e-08 - mape: 1.9758 - mae: 6.0335e-05 - val_loss: 1.9741e-07 - val_mse: 1.9741e-07 - val_mape: 28.0952 - val_mae: 4.2832e-04 - lr: 2.5000e-04 - 963s/epoch - 969ms/step
+Epoch 30/30
+994/994 - 968s - loss: 2.8623e-08 - mse: 2.8623e-08 - mape: 3.1985 - mae: 9.9514e-05 - val_loss: 1.9572e-08 - val_mse: 1.9572e-08 - val_mape: 2.0858 - val_mae: 7.3288e-05 - lr: 2.5000e-04 - 968s/epoch - 974ms/step
+SETUP TIME =  176.64632511138916
+DATASET TIME =  15.186750888824463
+Model: "sequential"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ lstm (LSTM)                 (None, 1200, 64)          17664     
+                                                                 
+ lstm_1 (LSTM)               (None, 64)                33024     
+                                                                 
+ dense (Dense)               (None, 64)                4160      
+                                                                 
+ dense_1 (Dense)             (None, 1)                 65        
+                                                                 
+=================================================================
+Total params: 54,913
+Trainable params: 54,913
+Non-trainable params: 0
+_________________________________________________________________
+MODEL COMPILE TIME =  3.260725259780884
+Epoch 1/70
