@@ -1,6 +1,6 @@
 {
     "model_type": "LSTM",
-    "epochs": 30,
+    "epochs": 200,
     "units": [
       256,
       256,
