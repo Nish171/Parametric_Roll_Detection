@@ -28,7 +28,7 @@ def get_inference(Data_inf, model, OUT_dim, inf_time_dir=None):
     true_roll = []
     pred_roll = []
     inputs = []
-    batch = []
+    # batch = []
     ti = []
     total_t = 0
     i=1
@@ -37,8 +37,8 @@ def get_inference(Data_inf, model, OUT_dim, inf_time_dir=None):
         pred_roll.extend(p_r)
         true_roll.extend(t_r)
         inputs.extend(x)
-        batch.extend(i)
-        ti.extend(t)
+        # batch.extend(i)
+        ti.append(t)
         total_t += t
         i+=1
     if inf_time_dir:
@@ -56,18 +56,18 @@ def save_inference(inputs, true_roll, pred_roll, save_dir):
     if not os.path.isdir(save_dir):
         os.mkdir(save_dir)
         
-    inp_path = save_dir + '/inputs.csv'
-    true_path = save_dir + '/true_roll.csv'
-    pred_path = save_dir + '/pred_roll.csv'
+    inp_path = save_dir / 'inputs.csv'
+    true_path = save_dir / 'true_roll.csv'
+    pred_path = save_dir / 'pred_roll.csv'
 
     np.savetxt(inp_path, inputs[:,:,0], delimiter =", ")
     np.savetxt(true_path, true_roll, delimiter =", ")
     np.savetxt(pred_path, pred_roll, delimiter =", ")
     
 def load_inference(folder):
-    inputs    = np.genfromtxt(folder + '/inputs.csv', delimiter=', ', skip_header=0)
-    true_roll = np.genfromtxt(folder + '/true_roll.csv', delimiter=', ', skip_header=0)
-    pred_roll = np.genfromtxt(folder + '/pred_roll.csv', delimiter=', ', skip_header=0)
+    inputs    = np.genfromtxt(folder / 'inputs.csv', delimiter=', ', skip_header=0)
+    true_roll = np.genfromtxt(folder / 'true_roll.csv', delimiter=', ', skip_header=0)
+    pred_roll = np.genfromtxt(folder / 'pred_roll.csv', delimiter=', ', skip_header=0)
     
     return inputs, true_roll, pred_roll
 

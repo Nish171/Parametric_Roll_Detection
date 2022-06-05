@@ -1,0 +1,40 @@
+{
+    "model_type": "LSTM",
+    "epochs": 70,
+    "units": [
+      128,
+      128,
+	    64
+    ],
+    "metrics": [
+      "mse",
+      "mape",
+      "mae"
+    ],
+    "loss": "mse",
+    "optimizer": "adam",
+    "roll_period": 30,
+    "patience": 5,
+    "input_dim": 300,
+    "pred_dim": 300,
+    "shift": 300,
+    "skip": 0.25,
+    "hop": 0.5,
+    "batch_size": 64,
+    "classification": false,
+    "in_cols": [
+      "roll",
+      "pitch",
+      "heave",
+      "wave"
+    ],
+    "train_s": 0.6,
+    "val_s": 0.2,
+    "out_cols": [
+      "roll",
+      "pitch",
+      "heave",
+      "wave"
+    ],
+    "output_dim": 1200
+}
