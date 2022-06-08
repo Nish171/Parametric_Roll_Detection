@@ -30,7 +30,7 @@ def csv_write_row(path, rows):
         for row in rows:
             writer.writerow(row)
 
-def get_inference(Data_inf, model, OUT_dim, save_dir=None):
+def get_inference(Data_inf, model, OUT_dim, save_dir):
     true_roll = []
     pred_roll = []
     inputs = []
@@ -50,7 +50,7 @@ def get_inference(Data_inf, model, OUT_dim, save_dir=None):
         print(f"Running inference for Batch: {i}")
         t_r, p_r, t = ARModel_Inference(x, y, OUT_dim = OUT_dim, model=model)
         print(f"Inference time: {t}")
-        
+
         pred_roll.extend(p_r)
         true_roll.extend(t_r)
         inputs.extend(x)
