@@ -33,6 +33,8 @@ model_dir = PATH_TO_MODEL_DIR / "model"
 
 model = tf.keras.models.load_model(model_dir)
 
+model.summary()
+
 print("MODEL LOAD TIME = ", time.time() - s)
 
 s = time.time()
