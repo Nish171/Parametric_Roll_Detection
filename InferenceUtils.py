@@ -47,7 +47,7 @@ def get_inference(Data_inf, model, OUT_dim, save_dir):
     pred_path = save_dir / 'pred_roll.csv'
     time_path = save_dir / 'inf_time.csv'
 
-    for x, y in Data_inf.take(2):
+    for x, y in Data_inf:
         print(f"Running inference for Batch: {i}")
         t_r, p_r, t = ARModel_Inference(x, y, OUT_dim = OUT_dim, model=model)
         print(f"Inference time: {t}")
@@ -69,7 +69,7 @@ def get_inference(Data_inf, model, OUT_dim, save_dir):
     true_roll = np.array(true_roll)
     pred_roll = np.array(pred_roll)
         
-    return inputs, true_roll, pred_roll, total_t/i
+    return inputs, true_roll, pred_roll, total_t/(i-1)
     
 def save_inference(inputs, true_roll, pred_roll, save_dir):
     
