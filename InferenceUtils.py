@@ -32,7 +32,7 @@ def get_inference(Data_inf, model, OUT_dim, inf_time_dir=None):
     ti = []
     total_t = 0
     i=1
-    for x, y in Data_inf.take(2):
+    for x, y in Data_inf:
         t_r, p_r, t = ARModel_Inference(x, y, OUT_dim = OUT_dim, model=model)
         pred_roll.extend(p_r)
         true_roll.extend(t_r)

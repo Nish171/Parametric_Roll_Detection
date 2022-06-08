@@ -135,3 +135,47 @@ Epoch 56/200
 Epoch 57/200
 994/994 - 1070s - loss: 6.0911e-09 - mse: 6.0911e-09 - mape: 0.9652 - mae: 3.9389e-05 - val_loss: 2.2306e-08 - val_mse: 2.2306e-08 - val_mape: 0.9149 - val_mae: 6.1534e-05 - lr: 1.5625e-05 - 1070s/epoch - 1s/step
 Epoch 58/200
+994/994 - 1280s - loss: 8.0243e-09 - mse: 8.0243e-09 - mape: 1.0519 - mae: 4.4590e-05 - val_loss: 2.2209e-08 - val_mse: 2.2209e-08 - val_mape: 0.9448 - val_mae: 6.1491e-05 - lr: 1.5625e-05 - 1280s/epoch - 1s/step
+Epoch 59/200
+994/994 - 1071s - loss: 6.0323e-09 - mse: 6.0323e-09 - mape: 0.9667 - mae: 3.9207e-05 - val_loss: 2.2108e-08 - val_mse: 2.2108e-08 - val_mape: 0.9106 - val_mae: 6.1191e-05 - lr: 1.5625e-05 - 1071s/epoch - 1s/step
+Epoch 60/200
+994/994 - 1063s - loss: 7.9588e-09 - mse: 7.9588e-09 - mape: 1.0621 - mae: 4.4394e-05 - val_loss: 2.2014e-08 - val_mse: 2.2014e-08 - val_mape: 0.9393 - val_mae: 6.1148e-05 - lr: 1.5625e-05 - 1063s/epoch - 1s/step
+Epoch 61/200
+994/994 - 1074s - loss: 5.9648e-09 - mse: 5.9648e-09 - mape: 0.9662 - mae: 3.8984e-05 - val_loss: 2.1915e-08 - val_mse: 2.1915e-08 - val_mape: 0.9063 - val_mae: 6.0859e-05 - lr: 1.5625e-05 - 1074s/epoch - 1s/step
+Epoch 62/200
+994/994 - 1075s - loss: 5.2307e-09 - mse: 5.2307e-09 - mape: 0.8589 - mae: 3.6655e-05 - val_loss: 2.1841e-08 - val_mse: 2.1841e-08 - val_mape: 0.9087 - val_mae: 6.0701e-05 - lr: 1.0000e-05 - 1075s/epoch - 1s/step
+Epoch 63/200
+994/994 - 1070s - loss: 5.2306e-09 - mse: 5.2306e-09 - mape: 0.8537 - mae: 3.7126e-05 - val_loss: 2.1789e-08 - val_mse: 2.1789e-08 - val_mape: 0.9382 - val_mae: 6.0698e-05 - lr: 1.0000e-05 - 1070s/epoch - 1s/step
+Epoch 64/200
+994/994 - 1073s - loss: 5.3992e-09 - mse: 5.3992e-09 - mape: 0.8491 - mae: 3.7597e-05 - val_loss: 2.1718e-08 - val_mse: 2.1718e-08 - val_mape: 0.9346 - val_mae: 6.0564e-05 - lr: 1.0000e-05 - 1073s/epoch - 1s/step
+Epoch 65/200
+994/994 - 1100s - loss: 5.3440e-09 - mse: 5.3440e-09 - mape: 0.8394 - mae: 3.7424e-05 - val_loss: 2.1651e-08 - val_mse: 2.1651e-08 - val_mape: 0.9341 - val_mae: 6.0449e-05 - lr: 1.0000e-05 - 1100s/epoch - 1s/step
+Epoch 66/200
+994/994 - 1070s - loss: 5.3337e-09 - mse: 5.3337e-09 - mape: 0.8366 - mae: 3.7376e-05 - val_loss: 2.1582e-08 - val_mse: 2.1582e-08 - val_mape: 0.9325 - val_mae: 6.0329e-05 - lr: 1.0000e-05 - 1070s/epoch - 1s/step
+Epoch 67/200
+994/994 - 1071s - loss: 5.3073e-09 - mse: 5.3073e-09 - mape: 0.8326 - mae: 3.7284e-05 - val_loss: 2.1514e-08 - val_mse: 2.1514e-08 - val_mape: 0.9308 - val_mae: 6.0212e-05 - lr: 1.0000e-05 - 1071s/epoch - 1s/step
+Epoch 68/200
+994/994 - 1070s - loss: 5.2874e-09 - mse: 5.2874e-09 - mape: 0.8298 - mae: 3.7211e-05 - val_loss: 2.1446e-08 - val_mse: 2.1446e-08 - val_mape: 0.9292 - val_mae: 6.0094e-05 - lr: 1.0000e-05 - 1070s/epoch - 1s/step
+Epoch 69/200
+994/994 - 1066s - loss: 5.2659e-09 - mse: 5.2659e-09 - mape: 0.8272 - mae: 3.7133e-05 - val_loss: 2.1378e-08 - val_mse: 2.1378e-08 - val_mape: 0.9276 - val_mae: 5.9977e-05 - lr: 1.0000e-05 - 1066s/epoch - 1s/step
+Epoch 70/200
+994/994 - 1411s - loss: 5.2455e-09 - mse: 5.2455e-09 - mape: 0.8248 - mae: 3.7060e-05 - val_loss: 2.1311e-08 - val_mse: 2.1311e-08 - val_mape: 0.9258 - val_mae: 5.9862e-05 - lr: 1.0000e-05 - 1411s/epoch - 1s/step
+Epoch 71/200
+994/994 - 1066s - loss: 5.2251e-09 - mse: 5.2251e-09 - mape: 0.8221 - mae: 3.6986e-05 - val_loss: 2.1245e-08 - val_mse: 2.1245e-08 - val_mape: 0.9241 - val_mae: 5.9748e-05 - lr: 1.0000e-05 - 1066s/epoch - 1s/step
+Epoch 72/200
+994/994 - 1072s - loss: 5.2055e-09 - mse: 5.2055e-09 - mape: 0.8197 - mae: 3.6915e-05 - val_loss: 2.1179e-08 - val_mse: 2.1179e-08 - val_mape: 0.9229 - val_mae: 5.9636e-05 - lr: 1.0000e-05 - 1072s/epoch - 1s/step
+Epoch 73/200
+994/994 - 1064s - loss: 5.1858e-09 - mse: 5.1858e-09 - mape: 0.8171 - mae: 3.6843e-05 - val_loss: 2.1113e-08 - val_mse: 2.1113e-08 - val_mape: 0.9208 - val_mae: 5.9522e-05 - lr: 1.0000e-05 - 1064s/epoch - 1s/step
+Epoch 74/200
+994/994 - 1622s - loss: 5.1669e-09 - mse: 5.1669e-09 - mape: 0.8148 - mae: 3.6773e-05 - val_loss: 2.1049e-08 - val_mse: 2.1049e-08 - val_mape: 0.9197 - val_mae: 5.9413e-05 - lr: 1.0000e-05 - 1622s/epoch - 2s/step
+Epoch 75/200
+994/994 - 1086s - loss: 5.1481e-09 - mse: 5.1481e-09 - mape: 0.8125 - mae: 3.6704e-05 - val_loss: 2.0984e-08 - val_mse: 2.0984e-08 - val_mape: 0.9177 - val_mae: 5.9301e-05 - lr: 1.0000e-05 - 1086s/epoch - 1s/step
+Epoch 76/200
+994/994 - 1062s - loss: 5.1294e-09 - mse: 5.1294e-09 - mape: 0.8101 - mae: 3.6635e-05 - val_loss: 2.0920e-08 - val_mse: 2.0920e-08 - val_mape: 0.9155 - val_mae: 5.9189e-05 - lr: 1.0000e-05 - 1062s/epoch - 1s/step
+Epoch 77/200
+994/994 - 1054s - loss: 5.1115e-09 - mse: 5.1115e-09 - mape: 0.8077 - mae: 3.6568e-05 - val_loss: 2.0857e-08 - val_mse: 2.0857e-08 - val_mape: 0.9138 - val_mae: 5.9080e-05 - lr: 1.0000e-05 - 1054s/epoch - 1s/step
+Epoch 78/200
+994/994 - 1068s - loss: 5.0935e-09 - mse: 5.0935e-09 - mape: 0.8056 - mae: 3.6502e-05 - val_loss: 2.0794e-08 - val_mse: 2.0794e-08 - val_mape: 0.9120 - val_mae: 5.8971e-05 - lr: 1.0000e-05 - 1068s/epoch - 1s/step
+Epoch 79/200
+994/994 - 1053s - loss: 5.0759e-09 - mse: 5.0759e-09 - mape: 0.8032 - mae: 3.6436e-05 - val_loss: 2.0731e-08 - val_mse: 2.0731e-08 - val_mape: 0.9106 - val_mae: 5.8865e-05 - lr: 1.0000e-05 - 1053s/epoch - 1s/step
+Epoch 80/200
