@@ -3,6 +3,7 @@ import tensorflow as tf
 import numpy as np
 import matplotlib.pyplot as plt
 import time
+from csv import writer
 
 def ARModel_Inference(x, y, OUT_dim, model):
     x, y = tf.cast(x, tf.float32), tf.cast(y, tf.float32)
@@ -23,8 +24,13 @@ def ARModel_Inference(x, y, OUT_dim, model):
     pred_roll = tf.squeeze(tf.stack(pred_roll, axis=1), [-1]) 
     return true_roll, pred_roll, e-s
 
+def csv_write_row(path, rows):
+    with open(path, 'a') as f:
+        writer = writer(f)
+        for row in rows:
+            writer.writerow(row)
 
-def get_inference(Data_inf, model, OUT_dim, inf_time_dir=None):
+def get_inference(Data_inf, model, OUT_dim, save_dir=None):
     true_roll = []
     pred_roll = []
     inputs = []
@@ -32,17 +38,31 @@ def get_inference(Data_inf, model, OUT_dim, inf_time_dir=None):
     ti = []
     total_t = 0
     i=1
+    if not os.path.isdir(save_dir):
+        os.mkdir(save_dir)
+        
+    inp_path = save_dir / 'inputs.csv'
+    true_path = save_dir / 'true_roll.csv'
+    pred_path = save_dir / 'pred_roll.csv'
+    time_path = save_dir / 'inf_time.csv'
+
     for x, y in Data_inf.take(2):
+        print(f"Running inference for Batch: {i}")
         t_r, p_r, t = ARModel_Inference(x, y, OUT_dim = OUT_dim, model=model)
+        print(f"Inference time: {t}")
+        
         pred_roll.extend(p_r)
         true_roll.extend(t_r)
         inputs.extend(x)
-        # batch.extend(i)
+
+        csv_write_row(inp_path, x)
+        csv_write_row(true_path, t_r)
+        csv_write_row(pred_path, p_r)
+        csv_write_row(time_path, [t])
+
         ti.append(t)
         total_t += t
         i+=1
-    if inf_time_dir:
-        np.savetxt(inf_time_dir / 'inf_time.csv', ti, delimiter=', ')
         
     inputs = np.array(inputs)
     true_roll = np.array(true_roll)

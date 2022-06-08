@@ -51,9 +51,9 @@ batch_size = para['batch_size']
 val_in, val_true, val_pred, val_inf_t = get_inference(Data_inf.Val, model, OUT_dim)
 
 print(f"Average Inference time for Validation set with batch size {batch_size} and out_dim {OUT_dim}  = {val_inf_t}")
-save_inference(val_in, val_true, val_pred, val_dir)
+# save_inference(val_in, val_true, val_pred, val_dir)
 
 test_in, test_true, test_pred, test_inf_time = get_inference(Data_inf.Test, model, OUT_dim)
 
 print(f"Average Inference time for Test set with batch size {batch_size} and out_dim {OUT_dim}  = {test_inf_time}")
-save_inference(test_in, test_true, test_pred, test_dir)
+# save_inference(test_in, test_true, test_pred, test_dir)
