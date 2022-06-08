@@ -59,7 +59,7 @@ def get_inference(Data_inf, model, OUT_dim, save_dir):
         csv_write_row(inp_path, x[:,:,0].numpy())
         csv_write_row(true_path, t_r.numpy())
         csv_write_row(pred_path, p_r.numpy())
-        csv_write_row(time_path, [t,])
+        csv_write_row(time_path, [[t,]])
 
         ti.append(t)
         total_t += t
