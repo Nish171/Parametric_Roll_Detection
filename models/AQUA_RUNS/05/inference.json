@@ -19,7 +19,7 @@
     "pred_dim": 300,
     "shift": 300,
     "skip": 0.25,
-    "hop": 0.5,
+    "hop": 150,
     "batch_size": 64,
     "classification": false,
     "in_cols": [

@@ -3,7 +3,7 @@ import tensorflow as tf
 import numpy as np
 import matplotlib.pyplot as plt
 import time
-from csv import writer
+from csv import writer, reader
 
 def ARModel_Inference(x, y, OUT_dim, model):
     x, y = tf.cast(x, tf.float32), tf.cast(y, tf.float32)
@@ -84,11 +84,19 @@ def save_inference(inputs, true_roll, pred_roll, save_dir):
     np.savetxt(inp_path, inputs[:,:,0], delimiter =", ")
     np.savetxt(true_path, true_roll, delimiter =", ")
     np.savetxt(pred_path, pred_roll, delimiter =", ")
-    
+
+def csv_reader(path):
+    data = []
+    with open(path, 'r') as f:
+        data_reader = reader(f)
+        for row in data_reader:
+            data.append(list(map(float, row)))
+        return np.array(data)
+
 def load_inference(folder):
-    inputs    = np.genfromtxt(folder / 'inputs.csv', delimiter=', ', skip_header=0)
-    true_roll = np.genfromtxt(folder / 'true_roll.csv', delimiter=', ', skip_header=0)
-    pred_roll = np.genfromtxt(folder / 'pred_roll.csv', delimiter=', ', skip_header=0)
+    inputs    = csv_reader(folder / 'inputs.csv')
+    true_roll = csv_reader(folder / 'true_roll.csv')
+    pred_roll = csv_reader(folder / 'pred_roll.csv')
     
     return inputs, true_roll, pred_roll
 

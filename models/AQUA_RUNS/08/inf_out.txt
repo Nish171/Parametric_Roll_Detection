@@ -1,0 +1,84 @@
+SETUP TIME =  5.21949577331543
+Model: "sequential"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ lstm (LSTM)                 (None, 1200, 64)          17664     
+                                                                 
+ lstm_1 (LSTM)               (None, 1200, 64)          33024     
+                                                                 
+ lstm_2 (LSTM)               (None, 64)                33024     
+                                                                 
+ dense (Dense)               (None, 64)                4160      
+                                                                 
+ dense_1 (Dense)             (None, 1)                 65        
+                                                                 
+=================================================================
+Total params: 87,937
+Trainable params: 87,937
+Non-trainable params: 0
+_________________________________________________________________
+MODEL LOAD TIME =  9.644913911819458
+DATASET TIME =  5.634567022323608
+Running inference for Batch: 1
+Inference time: 66.21567487716675
+Running inference for Batch: 2
+Inference time: 65.00641703605652
+Running inference for Batch: 3
+Inference time: 64.90040159225464
+Running inference for Batch: 4
+Inference time: 64.90139389038086
+Running inference for Batch: 5
+Inference time: 64.9340147972107
+Running inference for Batch: 6
+Inference time: 59.81917476654053
+Running inference for Batch: 7
+Inference time: 59.819884061813354
+Running inference for Batch: 8
+Inference time: 59.8774037361145
+Running inference for Batch: 9
+Inference time: 59.85804057121277
+Running inference for Batch: 10
+Inference time: 59.865071058273315
+Running inference for Batch: 11
+Inference time: 59.816574573516846
+Running inference for Batch: 12
+Inference time: 59.84856128692627
+Running inference for Batch: 13
+Inference time: 59.82422947883606
+Running inference for Batch: 14
+Inference time: 59.81085920333862
+Running inference for Batch: 15
+Inference time: 135.03498005867004
+Average Inference time for Validation set with batch size 64 and out_dim 1200  = 66.63551206588745
+Running inference for Batch: 1
+Inference time: 59.916983127593994
+Running inference for Batch: 2
+Inference time: 59.94824433326721
+Running inference for Batch: 3
+Inference time: 59.94435787200928
+Running inference for Batch: 4
+Inference time: 59.98796224594116
+Running inference for Batch: 5
+Inference time: 59.994861364364624
+Running inference for Batch: 6
+Inference time: 60.00994110107422
+Running inference for Batch: 7
+Inference time: 59.97588133811951
+Running inference for Batch: 8
+Inference time: 60.05690097808838
+Running inference for Batch: 9
+Inference time: 60.01500463485718
+Running inference for Batch: 10
+Inference time: 59.83478760719299
+Running inference for Batch: 11
+Inference time: 59.812257051467896
+Running inference for Batch: 12
+Inference time: 59.78070139884949
+Running inference for Batch: 13
+Inference time: 59.7565062046051
+Running inference for Batch: 14
+Inference time: 59.79499840736389
+Running inference for Batch: 15
+Inference time: 134.81635355949402
+Average Inference time for Test set with batch size 64 and out_dim 1200  = 64.90971608161927
